@@ -1,0 +1,42 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+
+
+public class Server {
+	 // метод който се свързва със SQL сървъра и връща ресурс (връзка) към него,
+	  // а ако свързването е неуспешно, ще върне NULL
+	  private static Connection connect(String url, String user, String password){
+	    Connection result = null;
+	    try{
+	      result = DriverManager.getConnection(url, user, password);
+	    }
+	    catch(SQLException e){
+	      e.printStackTrace();
+	    }
+	    return result;
+	  }
+
+	
+	  
+	  public static void main(String[] args){
+	    // localhost е IP на сървъра, 3306 е порта, firmata е базата
+	    String url = "jdbc:mysql://localhost:3306/firmata";
+	    String user = "root";
+	    String pass = "*********";
+	
+	    Connection link = Server.connect(url, user, pass);
+
+	    if(link == null){
+	      System.out.println("Опа, MySQL не е пуснат!");
+	      return;
+	    }
+	    else{
+	      System.out.println("Свързах се с MySQL сървъра!");
+	    }
+
+	  
+	  }
+}
+
